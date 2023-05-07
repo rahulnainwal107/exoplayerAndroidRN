@@ -1,4 +1,4 @@
-package com.rnnativemodulesdemo;
+package com.exoplaypoc;
 
 import androidx.annotation.NonNull;
 

@@ -35,8 +35,11 @@ function App(): JSX.Element {
   };
 
   const onPress = () => {
-    console.log('We will invoke the native module here!');
-    CacheInterface.createCacheVideoModule('testName', 'testLocation');
+    // console.log('We will invoke the native module here!');
+    // CacheInterface.createCacheVideoModule('testName', 'testLocation');
+    CacheInterface.downloadVideoUsingUri(
+      'https://z5vodnews.akamaized.net/Transcoded_Content/News/Vod/Times_Now_Navbharat/1496ku9g6g/1x/81/ij/1x81ij39ou/dda32ec8_F20_720p_1500/dda32ec8_F20_720p_1500/index.m3u8',
+    );
   };
 
   return (
@@ -66,8 +69,9 @@ function App(): JSX.Element {
             backgroundColor: 'green',
             alignItems: 'center',
           }}
+          viewId={123}
           onPress={onPress}>
-          <Text style={{color: 'white'}}>Download</Text>
+          <Text style={{color: 'white'}}>Download video using URI</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
