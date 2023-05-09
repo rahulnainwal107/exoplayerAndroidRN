@@ -48,6 +48,9 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -93,13 +96,26 @@ public class DownloadTracker {
 
   public boolean isDownloaded(MediaItem mediaItem) {
     @Nullable Download download = downloads.get(checkNotNull(mediaItem.localConfiguration).uri);
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    Log.d("download N","download"+gson.toJson(download));
+    Log.d("state ","state"+download.state);
+    boolean val =download != null && download.state != Download.STATE_FAILED;
+    Log.d("val ",""+val);
     return download != null && download.state != Download.STATE_FAILED;
   }
 
   @Nullable
   public DownloadRequest getDownloadRequest(Uri uri) {
+    Log.d("URR ",""+uri);
     @Nullable Download download = downloads.get(uri);
-    return download != null && download.state != Download.STATE_FAILED ? download.request : null;
+    Log.d("download ",""+uri);
+           Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+       Log.d("download N","download"+gson.toJson(download));
+       DownloadRequest dr = download != null && download.state != Download.STATE_FAILED ? download.request : null;
+    Log.d("DR ",""+gson.toJson(dr));
+    return dr;
   }
 
   public void toggleDownload(
@@ -125,9 +141,10 @@ public class DownloadTracker {
       while (loadedDownloads.moveToNext()) {
         Download download = loadedDownloads.getDownload();
         downloads.put(download.request.uri, download);
+        Log.d("TAG", "Failed to query downloads"+ downloads);
       }
     } catch (IOException e) {
-      Log.w(TAG, "Failed to query downloads", e);
+      Log.w(TAG, "Failed to query downloads =>", e);
     }
   }
 
