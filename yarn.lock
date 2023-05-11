@@ -5921,7 +5921,7 @@
     "warn-once" "^0.1.0"
 
 "react-native-video@github:rahulnainwal107/react-native-video#offline_video_download":
-  "resolved" "git+ssh://git@github.com/rahulnainwal107/react-native-video.git#f24f1dd1212496ad0bf31422100752b09620d1f9"
+  "resolved" "git+ssh://git@github.com/rahulnainwal107/react-native-video.git#aec28664ca65ec0055057c965c183973df962226"
   "version" "6.0.0-alpha.6"
   dependencies:
     "deprecated-react-native-prop-types" "^2.2.0"

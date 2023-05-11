@@ -28,7 +28,7 @@ const VideoListItem = ({item, index, navigation}) => {
 
   const playVideoOffline = () => {
     //CacheInterface.getAbsolutePath(uri);
-    navigation.navigate('VideoPlayerScreen', {uri});
+    navigation.navigate('VideoPlayerScreen', {uri, offlinePlay: isDownloaded});
   };
 
   const getUriForOfflineUse = (uri: string) => {

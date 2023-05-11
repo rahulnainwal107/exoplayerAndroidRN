@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
 
 const VideoPlayerScreen = ({route}) => {
-  const {uri} = route.params;
+  const {uri, offlinePlay} = route.params;
   return (
     <View>
       <Video
@@ -13,6 +13,7 @@ const VideoPlayerScreen = ({route}) => {
         }} // Can be a URL or a local file.
         controls={true}
         resizeMode="contain"
+        playOffline={offlinePlay}
         // ref={ref => {
         //   this.player = ref;
         // }} // Store reference
