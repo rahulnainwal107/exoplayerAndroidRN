@@ -16,7 +16,7 @@ public class MyAppPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactApplicationContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new CacheVideoModule(reactApplicationContext));
+        //modules.add(new CacheVideoModule(reactApplicationContext));
         return modules;
     }
 

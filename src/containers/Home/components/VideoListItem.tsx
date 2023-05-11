@@ -1,7 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, Text, Image, ActivityIndicator} from 'react-native';
 
-import CacheInterface from '../../../../CacheVideoModule';
+import {
+  downloadVideoUsingUri,
+  isVideoAvailableForOffline,
+} from 'react-native-video';
+
+//import CacheInterface from '../../../../CacheVideoModule';
 
 const VideoListItem = ({item, index, navigation}) => {
   const {uri, poster, title} = item;
@@ -14,7 +19,7 @@ const VideoListItem = ({item, index, navigation}) => {
   const onPressDownload = (uri: string) => {
     // console.log('We will invoke the native module here!');
     // CacheInterface.createCacheVideoModule('testName', 'testLocation');
-    uri && CacheInterface.downloadVideoUsingUri(uri);
+    uri && downloadVideoUsingUri(uri);
   };
 
   const playVideoOnline = () => {
@@ -22,12 +27,12 @@ const VideoListItem = ({item, index, navigation}) => {
   };
 
   const playVideoOffline = () => {
-    CacheInterface.getAbsolutePath(uri);
+    //CacheInterface.getAbsolutePath(uri);
     navigation.navigate('VideoPlayerScreen', {uri});
   };
 
   const getUriForOfflineUse = (uri: string) => {
-    CacheInterface.isVideoAvailableForOffline(uri)
+    isVideoAvailableForOffline(uri)
       .then(isDownloaded => {
         setIsDownloaded(isDownloaded);
         console.log(`Video is downloaded: ${isDownloaded}`);
