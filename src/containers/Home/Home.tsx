@@ -3,7 +3,8 @@ import {FlatList} from 'react-native';
 
 import {VideoItemsProps} from '../../../types';
 import VideoListItem from './components/VideoListItem';
-import {downloadManagerEmitter} from '../../../CacheVideoModule';
+//import {downloadManagerEmitter} from '../../../CacheVideoModule';
+import {downloadManagerEmitter} from 'react-native-video';
 
 const data: VideoItemsProps = [
   {
