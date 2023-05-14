@@ -172,6 +172,29 @@ public class CacheVideoModule extends ReactContextBaseJavaModule {
 
    }
 
+   @ReactMethod
+    public static void downloadEvent(String eventName, WritableMap params) {
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
+    }
+
+    private static synchronized DatabaseProvider getDatabaseProvider(Context context) {
+        if (databaseProvider == null) {
+            databaseProvider = new StandaloneDatabaseProvider(context);
+        }
+        return databaseProvider;
+    }
+
+    private static synchronized File getDownloadDirectory(Context context) {
+        if (downloadDirectory == null) {
+            downloadDirectory = context.getExternalFilesDir(/* type= */ null);
+            if (downloadDirectory == null) {
+                downloadDirectory = context.getFilesDir();
+            }
+        }
+        return downloadDirectory;
+    }
+
     private static synchronized DatabaseProvider getDatabaseProvider(Context context) {
         if (databaseProvider == null) {
             databaseProvider = new StandaloneDatabaseProvider(context);

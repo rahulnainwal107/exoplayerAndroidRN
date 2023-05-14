@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList} from 'react-native';
 
 import {VideoItemsProps} from '../../../types';
 import VideoListItem from './components/VideoListItem';
+import {downloadManagerEmitter} from '../../../CacheVideoModule';
 
 const data: VideoItemsProps = [
   {
@@ -128,6 +129,29 @@ const data: VideoItemsProps = [
 ];
 
 const Home = ({navigation}) => {
+  useEffect(() => {
+    downloadManagerEmitter.addListener('DOWNLOAD_COMPLETED', params => {
+      console.log('DOWNLOAD_COMPLETED params ', params);
+    });
+    downloadManagerEmitter.addListener('DOWNLOAD_FAILED', params => {
+      console.log('DOWNLOAD_FAILED params ', params);
+    });
+    downloadManagerEmitter.addListener('DOWNLOAD_QUEUED', params => {
+      console.log('DOWNLOAD_QUEUED params ', params);
+    });
+    downloadManagerEmitter.addListener('DOWNLOAD_STOPPED', params => {
+      console.log('DOWNLOAD_STOPPED params ', params);
+    });
+    downloadManagerEmitter.addListener('DOWNLOADING', params => {
+      console.log('DOWNLOADING params ', params);
+    });
+    downloadManagerEmitter.addListener('DOWNLOAD_REMOVING', params => {
+      console.log('DOWNLOAD_REMOVING params ', params);
+    });
+    downloadManagerEmitter.addListener('DOWNLOAD_RESTARTING', params => {
+      console.log('DOWNLOAD_RESTARTING params ', params);
+    });
+  }, []);
   return (
     <FlatList
       data={data}
