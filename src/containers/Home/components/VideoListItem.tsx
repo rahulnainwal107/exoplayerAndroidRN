@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, Text, Image, ActivityIndicator} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
   downloadVideoUsingUri,
@@ -7,11 +8,14 @@ import {
 } from 'react-native-video';
 
 //import CacheInterface from '../../../../CacheVideoModule';
+import {addForDownload} from '../../../store/reducers';
 
 const VideoListItem = ({item, index, navigation}) => {
   const {uri, poster, title} = item;
   const [isDownloaded, setIsDownloaded] = useState(false);
-
+  const dispatch = useDispatch();
+  const download = useSelector(state => state.download);
+  console.log('download ', download);
   useEffect(() => {
     getUriForOfflineUse(uri);
   }, []);
@@ -19,11 +23,20 @@ const VideoListItem = ({item, index, navigation}) => {
   const onPressDownload = (uri: string) => {
     // console.log('We will invoke the native module here!');
     // CacheInterface.createCacheVideoModule('testName', 'testLocation');
-    uri && downloadVideoUsingUri(uri);
+    if (uri) {
+      const data = {
+        id: uri,
+        uri: uri,
+        isQueued: true,
+        isDownloadCompleted: false,
+      };
+      downloadVideoUsingUri(uri);
+      dispatch(addForDownload(data));
+    }
   };
 
   const playVideoOnline = () => {
-    navigation.navigate('VideoPlayerScreen', {uri});
+    navigation.navigate('VideoPlayerScreen', {uri, offlinePlay: isDownloaded});
   };
 
   const playVideoOffline = () => {

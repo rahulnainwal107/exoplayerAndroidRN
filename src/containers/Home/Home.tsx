@@ -1,10 +1,16 @@
 import React, {useEffect} from 'react';
 import {FlatList} from 'react-native';
+import {downloadManagerEmitter, removeAllDownloads} from 'react-native-video';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {VideoItemsProps} from '../../../types';
 import VideoListItem from './components/VideoListItem';
 //import {downloadManagerEmitter} from '../../../CacheVideoModule';
-import {downloadManagerEmitter} from 'react-native-video';
+import {
+  addForDownload,
+  downloadCompleted,
+  downloadStart,
+} from '../../store/reducers/index';
 
 const data: VideoItemsProps = [
   {
@@ -111,7 +117,7 @@ const data: VideoItemsProps = [
   },
   {
     title: 'Disenchanted 2022',
-    uri: '"https://d14nfbmksdrc0w.cloudfront.net/AFTERSUN_Official_Trailer/default.m3u8"',
+    uri: 'https://d14nfbmksdrc0w.cloudfront.net/AFTERSUN_Official_Trailer/default.m3u8',
     poster:
       'https://hips.hearstapps.com/hmg-prod/images/new-years-movies-index-1640368473.jpg',
   },
@@ -130,21 +136,48 @@ const data: VideoItemsProps = [
 ];
 
 const Home = ({navigation}) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    removeAllDownloads();
     downloadManagerEmitter.addListener('DOWNLOAD_COMPLETED', params => {
       console.log('DOWNLOAD_COMPLETED params ', params);
+      const {id} = params;
+      const data = {
+        id,
+        uri: id,
+        isQueued: false,
+        isDownloadCompleted: true,
+      };
+      dispatch(downloadCompleted(data));
     });
     downloadManagerEmitter.addListener('DOWNLOAD_FAILED', params => {
       console.log('DOWNLOAD_FAILED params ', params);
     });
     downloadManagerEmitter.addListener('DOWNLOAD_QUEUED', params => {
       console.log('DOWNLOAD_QUEUED params ', params);
+      const {id} = params;
+      const data = {
+        id,
+        uri: id,
+        isQueued: true,
+        isDownloadCompleted: false,
+      };
+      dispatch(downloadStart(data));
     });
     downloadManagerEmitter.addListener('DOWNLOAD_STOPPED', params => {
       console.log('DOWNLOAD_STOPPED params ', params);
     });
     downloadManagerEmitter.addListener('DOWNLOADING', params => {
       console.log('DOWNLOADING params ', params);
+      const {id} = params;
+      const data = {
+        id,
+        uri: id,
+        isQueued: false,
+        isDownloadCompleted: false,
+      };
+      dispatch(downloadStart(data));
     });
     downloadManagerEmitter.addListener('DOWNLOAD_REMOVING', params => {
       console.log('DOWNLOAD_REMOVING params ', params);
