@@ -139,7 +139,7 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    removeAllDownloads();
+    //removeAllDownloads();
     downloadManagerEmitter.addListener('DOWNLOAD_COMPLETED', params => {
       console.log('DOWNLOAD_COMPLETED params ', params);
       const {id} = params;
