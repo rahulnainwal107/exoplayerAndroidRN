@@ -59,6 +59,7 @@ function App(): JSX.Element {
         // onBuffer={this.onBuffer} // Callback when remote video is buffering
         // onError={this.videoError} // Callback when video cannot be loaded
         style={styles.backgroundVideo}
+        videoOptions={{title: 'Rahul Nainwal'}}
       />
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
