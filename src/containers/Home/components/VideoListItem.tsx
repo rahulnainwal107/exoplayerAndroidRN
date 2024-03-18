@@ -30,7 +30,7 @@ const VideoListItem = ({item, index, navigation}) => {
         isQueued: true,
         isDownloadCompleted: false,
       };
-      downloadVideoUsingUri(uri);
+      downloadVideoUsingUri(uri,title);
       dispatch(addForDownload(data));
     }
   };

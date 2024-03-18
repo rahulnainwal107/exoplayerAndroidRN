@@ -15,7 +15,7 @@ import {
 const data: VideoItemsProps = [
   {
     title: 'I Still Believe',
-    uri: 'https://d14nfbmksdrc0w.cloudfront.net/AFTERSUN_Official_Trailer/default.m3u8',
+    uri: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8',
     poster:
       'https://hips.hearstapps.com/hmg-prod/images/new-years-movies-index-1640368473.jpg',
   },
